@@ -18,7 +18,15 @@ user_id = os.environ["USER_ID"]
 
 template_id = os.environ["TEMPLATE_ID"]
 
-
+class LoadDatetime(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.strftime('%Y-%m-%d %H:%M:%S')
+        elif isinstance(obj, date):
+            return obj.strftime('%Y-%m-%d')
+        else:
+            return json.JSONEncoder.default(self, obj)
+          
 def get_weather():
   url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
   res = requests.get(url).json()
@@ -27,7 +35,8 @@ def get_weather():
 
 def get_time():
   now = datetime.now()
-  return now
+  res = json.dumps(now,cls=LoadDatetime)
+  return res
 
 def get_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
