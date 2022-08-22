@@ -38,6 +38,14 @@ def get_time():
   res = json.dumps(now,cls=LoadDatetime)
   return res
 
+def get_jinian():
+    time_last = datetime(2022, 10, 28)
+    time_now = datetime.now()
+    jinian = time_last - time_now
+    return jinian.days
+print(get_jinian())
+    
+
 def get_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
   return delta.days
@@ -62,6 +70,6 @@ client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
 wea, temperature = get_weather()
-data = {"NOW":{"value":get_time(),"color":get_random_color()},"weather":{"value":wea,"color":get_random_color()},"temperature":{"value":temperature},"love_days":{"value":get_count(),"color":get_random_color()},"birthday_left":{"value":get_birthday(),"color":get_random_color()},"words":{"value":get_words(), "color":get_random_color()}}
+data = {"jinian":{"value":get_jinian(),"color":get_random_color()},"NOW":{"value":get_time(),"color":get_random_color()},"weather":{"value":wea,"color":get_random_color()},"temperature":{"value":temperature},"love_days":{"value":get_count(),"color":get_random_color()},"birthday_left":{"value":get_birthday(),"color":get_random_color()},"words":{"value":get_words(), "color":get_random_color()}}
 res = wm.send_template(user_id, template_id, data)
 print(res)
