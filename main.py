@@ -15,6 +15,7 @@ app_id = os.environ["APP_ID"]
 app_secret = os.environ["APP_SECRET"]
 
 user_id = os.environ["USER_ID"]
+time_id = os.environ["NOW_ID"]
 template_id = os.environ["TEMPLATE_ID"]
 
 
@@ -23,6 +24,10 @@ def get_weather():
   res = requests.get(url).json()
   weather = res['data']['list'][0]
   return weather['weather'], math.floor(weather['temp'])
+
+def get_time():
+  now = datetime.now()
+  return now
 
 def get_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
