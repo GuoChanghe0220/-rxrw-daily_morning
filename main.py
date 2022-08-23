@@ -34,9 +34,8 @@ def get_weather():
   return weather['weather'], math.floor(weather['temp'])
 
 def get_time():
-  now = datetime.now()
-  res = json.dumps(now,cls=LoadDatetime)
-  return res
+  now_time = time.strftime('%Y-%m-%d', time.localtime())
+  return now_time
 
 def get_jinian():
     time_last = datetime(2022, 10, 28)
