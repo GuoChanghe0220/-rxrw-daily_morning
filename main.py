@@ -38,7 +38,7 @@ def get_time():
   return now_time
 
 def get_jinian():
-    time_last = datetime(2022, 10, 28)
+    time_last = datetime(2023, 10, 28)
     time_now = datetime.now()
     jinian = time_last - time_now
     return jinian.days
